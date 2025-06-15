@@ -197,6 +197,12 @@ const App = () => {
                 )}
 
             </div>
+            
+            {/* Footer Section */}
+            <footer className="absolute bottom-0 left-0 right-0 py-4 text-center text-white text-opacity-80 text-sm">
+                <p>Weather App by Chithila Wanniarachchi</p>
+            </footer>
+
             <style>
                 {/* Ensure the 'Inter' font is applied via a global CSS file or in index.html */}
                 {`
