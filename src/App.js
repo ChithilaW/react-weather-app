@@ -110,7 +110,7 @@ export default function App() {
         React.createElement('div', { className: 'max-w-md mx-auto space-y-4' },
           React.createElement('a', { href: 'https://docs.google.com/forms/d/e/1FAIpQLSd_CvN84tuXB9CTfZ0-zYBlYCATKET-G3jmzjjRaMEYD7w0dA/viewform', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Register Now'),
           React.createElement('a', { href: 'https://drive.google.com/drive/folders/1eUZvik_t60TQNnf3ZeScHKTn8jMT4Y29', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'District Drive'),
-          React.createElement('a', { href: 'https://docs.google.com/document/d/1mq6RYc_eZZ1nsH6wxu5e-sIh13wgM8hViL3Rse2XJkQ/edit?tab=t.0', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Doc Formats')
+          React.createElement('a', { href: 'https://docs.google.com/document/d/1Q48AfxSClzRAkaj_-noX6mCxxvZxlMyZ1CzMvb-RGBs/edit?usp=drivesdk', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Doc Formats')
         )
       )
     );
