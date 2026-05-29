@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [projectFilter, setProjectFilter] = useState('all');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Executive Committee with local image paths
+  // Executive Committee with updated roles matching requirements
   const execCommittee = [
     { role: "President", name: "Int. Kemith Rajapakse", img: "/board/kemith.png" },
     { role: "Secretary", name: "Int. Gagul Jayawardena", img: "/board/gagul.png" },
@@ -34,7 +35,7 @@ export default function App() {
     { name: "Int. Ahas Karunaratne", role: "CO-DIRECTOR OF PUBLIC RELATIONS", avenue: "pr", img: "/board/ahas.png" }
   ];
 
-  // Past DIRs ordered Chronologically according to Image 2
+  // Past DIRs ordered Chronologically
   const pastDirs = [
     { name: "Int. PP. Arjuna Gunawardena", year: "1984/1985" },
     { name: "Int. PP. Shehan Gunawardena", year: "1988/1990" },
@@ -52,35 +53,70 @@ export default function App() {
     { name: "Int. PP. Asel Karannagoda", year: "2018/2019" }
   ];
 
+  // Flagship projects with corrected fundraising spelling and finance matching ID
   const flagshipProjects = [
     { name: "RACE FOR CHANGE", tag: "FUNDRAISER", avenue: "FINANCE", id: "finance", gradient: "from-red-600 to-black" },
-    { name: "SPLISH SPLASH", tag: "FUNDRAUSER", avenue: "FINANCE", id: "community", gradient: "from-amber-600 to-stone-900" },
+    { name: "SPLISH SPLASH", tag: "FUNDRAISER", avenue: "FINANCE", id: "finance", gradient: "from-amber-600 to-stone-900" },
     { name: "HOPE", tag: "WELFARE", avenue: "COMMUNITY SERVICE", id: "community", gradient: "from-red-700 to-zinc-950" }
   ];
 
   // Common glass design tokens applied to all container interfaces
   const glassStyle = "bg-white/[0.03] backdrop-blur-md border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]";
   const renderHeader = () => {
-    return React.createElement('header', { className: 'sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-900 px-8 py-5 flex flex-wrap justify-between items-center' },
-      React.createElement('div', { className: 'flex items-center space-x-3' },
-        React.createElement('img', { 
-          src: '/icac-logo.png', 
-          onError: (e) => { e.target.style.display = 'none'; }, 
-          className: 'w-8 h-8 object-contain',
-          alt: ''
-        }),
-        React.createElement('span', { className: 'text-lg font-bold tracking-tight text-white' }, 'Interact Club of Ananda College')
+    return React.createElement('header', { className: 'sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-zinc-900 px-4 sm:px-8 py-4' },
+      React.createElement('div', { className: 'max-w-7xl mx-auto flex items-center justify-between relative' },
+        
+        // Brand Container: Centered on mobile, left-aligned on desktop
+        React.createElement('button', { 
+          onClick: () => { setActiveTab('home'); setIsMobileMenuOpen(false); },
+          className: 'flex items-center space-x-3 focus:outline-none mx-auto sm:mx-0 group transition-transform duration-300 hover:scale-[1.01]' 
+        },
+          React.createElement('img', { 
+            src: '/icac-logo.png', 
+            onError: (e) => { e.target.style.display = 'none'; }, 
+            className: 'w-9 h-9 object-contain transition-transform duration-300 group-hover:rotate-6',
+            alt: 'ICAC Logo'
+          }),
+          React.createElement('span', { className: 'text-lg font-black tracking-wider text-white transition-colors duration-300 group-hover:text-red-500' }, 'ICAC')
+        ),
+
+        // Desktop Navigation Layout
+        React.createElement('nav', { className: 'hidden sm:flex items-center space-x-8' },
+          ['about', 'projects', 'legacy', 'roster'].map((tab) => {
+            const isCurrentTab = activeTab === tab || (activeTab === 'home' && tab === 'about');
+            return React.createElement('button', {
+              key: tab,
+              onClick: () => setActiveTab(tab === 'about' ? 'home' : tab),
+              className: `text-xs font-bold uppercase tracking-widest transition-all duration-300 relative py-1 group ${isCurrentTab ? 'text-red-500' : 'text-zinc-400 hover:text-white'}`
+            }, 
+              tab,
+              React.createElement('span', { className: `absolute bottom-0 left-0 h-[2px] bg-red-500 transition-all duration-300 ${isCurrentTab ? 'w-full' : 'w-0 group-hover:w-full'}` })
+            );
+          })
+        ),
+
+        // Mobile Menu Toggle Button (Hamburger icon)
+        React.createElement('button', {
+          onClick: () => setIsMobileMenuOpen(!isMobileMenuOpen),
+          className: 'absolute right-0 top-1/2 -translate-y-1/2 sm:hidden p-2 text-zinc-400 hover:text-white focus:outline-none'
+        },
+          React.createElement('svg', { className: 'w-6 h-6', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' },
+            isMobileMenuOpen 
+              ? React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2', d: 'M6 18L18 6M6 6l12 12' })
+              : React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2', d: 'M4 6h16M4 12h16M4 18h16' })
+          )
+        )
       ),
-      React.createElement('nav', { className: 'flex items-center space-x-6 mt-4 sm:mt-0' },
+
+      // Mobile Menu Drawer Layout
+      isMobileMenuOpen && React.createElement('nav', { className: 'sm:hidden mt-4 pt-4 border-t border-zinc-900/80 flex flex-col space-y-4 animate-fadeIn' },
         ['about', 'projects', 'legacy', 'roster'].map((tab) => {
-          const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
-          const isHomeTabActive = activeTab === 'home' && (tab === 'about');
-          const isCurrentTab = activeTab === tab || isLegacyActive || isHomeTabActive;
+          const isCurrentTab = activeTab === tab || (activeTab === 'home' && tab === 'about');
           return React.createElement('button', {
             key: tab,
-            onClick: () => setActiveTab(tab === 'about' || tab === 'avenues' || tab === 'history' ? 'home' : tab),
-            className: `text-sm transition-colors capitalize ${isCurrentTab ? 'text-red-500 font-bold' : 'text-zinc-400 hover:text-white'}`
-          }, tab === 'legacy' ? 'Legacy' : tab);
+            onClick: () => { setActiveTab(tab === 'about' ? 'home' : tab); setIsMobileMenuOpen(false); },
+            className: `text-xs font-bold uppercase tracking-widest text-left py-2.5 px-2 rounded-lg transition-all ${isCurrentTab ? 'bg-red-950/20 text-red-500' : 'text-zinc-400 hover:text-white hover:bg-zinc-900/50'}`
+          }, tab);
         })
       )
     );
@@ -88,34 +124,33 @@ export default function App() {
 
   const renderHome = () => {
     return React.createElement('div', { className: 'space-y-20' },
-      React.createElement('section', { className: 'text-center max-w-4xl mx-auto pt-20 pb-12 px-4' },
+      React.createElement('section', { className: 'text-center max-w-4xl mx-auto pt-16 pb-8 px-4' },
         React.createElement('span', { className: 'px-4 py-1.5 bg-red-950/40 border border-red-900/60 rounded-full text-[10px] font-bold text-red-500 uppercase tracking-widest inline-block mb-6' }, 'INTERACT DISTRICT 3220'),
-        React.createElement('h1', { className: 'text-5xl sm:text-6xl font-black text-white tracking-tight leading-none mb-6' }, 
-          'An Unparalleled Legacy of ', 
-          React.createElement('span', { className: 'block text-yellow-500 mt-2' }, 'Leadership & Service')
+        React.createElement('h1', { className: 'text-4xl sm:text-6xl font-black text-white tracking-tight leading-none mb-6 uppercase' }, 
+          'ICAC ', 
+          React.createElement('span', { className: 'block text-yellow-500 mt-2 text-2xl sm:text-4xl font-extrabold tracking-wide' }, 'Leadership & Service')
         ),
-        React.createElement('p', { className: 'text-base text-zinc-400 max-w-xl mx-auto leading-relaxed' }, 
+        React.createElement('p', { className: 'text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed font-medium' }, 
           '"Forging the flame forward." Meet the leadership driving our historic operations forward.'
         )
       ),
 
       // Affiliations Panel
-      React.createElement('section', { className: `text-center max-w-4xl mx-auto py-12 px-6 rounded-2xl ${glassStyle}` },
-        React.createElement('span', { className: 'text-xs font-bold text-yellow-500 uppercase tracking-widest block mb-3' }, 'REGISTRATION & DOCUMENTATION'),
-        React.createElement('h2', { className: 'text-4xl font-black text-white tracking-tight mb-4' }, 'Affiliations'),
-        React.createElement('p', { className: 'text-sm text-zinc-400 max-w-xl mx-auto mb-8 leading-relaxed' }, 
+      React.createElement('section', { className: `text-center max-w-xl mx-auto py-10 px-6 rounded-2xl transition-all duration-500 hover:border-zinc-800 ${glassStyle}` },
+        React.createElement('span', { className: 'text-[10px] font-bold text-yellow-500 uppercase tracking-widest block mb-2 font-mono' }, 'REGISTRATION & DOCUMENTATION'),
+        React.createElement('h2', { className: 'text-2xl font-black text-white tracking-tight mb-3' }, 'Affiliations'),
+        React.createElement('p', { className: 'text-xs text-zinc-400 max-w-md mx-auto mb-6 leading-relaxed' }, 
           'Use the following links to register to join the Interact Club of Ananda College. ',
-          React.createElement('span', { className: 'block text-xs text-zinc-500 mt-1' }, '(Only applicable to students of Ananda College)')
+          React.createElement('span', { className: 'block text-[11px] text-zinc-500 mt-1' }, '(Only applicable to students of Ananda College)')
         ),
-        React.createElement('div', { className: 'max-w-md mx-auto space-y-4' },
-          React.createElement('a', { href: 'https://docs.google.com/forms/d/e/1FAIpQLSd_CvN84tuXB9CTfZ0-zYBlYCATKET-G3jmzjjRaMEYD7w0dA/viewform', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Register Now'),
-          React.createElement('a', { href: 'https://drive.google.com/drive/folders/1eUZvik_t60TQNnf3ZeScHKTn8jMT4Y29', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'District Drive'),
-          React.createElement('a', { href: 'https://docs.google.com/document/d/1Q48AfxSClzRAkaj_-noX6mCxxvZxlMyZ1CzMvb-RGBs/edit?usp=drivesdk', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Doc Formats')
+        React.createElement('div', { className: 'space-y-3' },
+          React.createElement('a', { href: 'https://google.com', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3 text-center tracking-widest text-[11px] font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-red-950/20 hover:border-red-900/50 to-transparent transition-all duration-300 uppercase' }, 'Register Now'),
+          React.createElement('a', { href: 'https://google.com', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3 text-center tracking-widest text-[11px] font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-red-950/20 hover:border-red-900/50 to-transparent transition-all duration-300 uppercase' }, 'District Drive'),
+          React.createElement('a', { href: 'https://google.com', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3 text-center tracking-widest text-[11px] font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-red-950/20 hover:border-red-900/50 to-transparent transition-all duration-300 uppercase' }, 'Doc Formats')
         )
       )
     );
   };
-  // Rebuilt Legacy Tab Section matches Image 1 and Image 2 layouts perfectly
   const renderLegacy = () => {
     const metrics = [
       { count: "14", label: "DIRS PRODUCED" },
@@ -125,16 +160,15 @@ export default function App() {
     ];
 
     return React.createElement('div', { className: 'space-y-24 py-6' },
-      // Segment 1: Our Historic Legacy Summary Blocks (Image 1 Structure)
       React.createElement('section', { className: 'space-y-12' },
         React.createElement('div', { className: 'text-center' },
-          React.createElement('h2', { className: 'text-5xl font-black tracking-tight text-white mb-4' }, 'Our Historic Legacy'),
-          React.createElement('p', { className: 'text-sm text-zinc-400 font-medium max-w-xl mx-auto' }, 
+          React.createElement('h2', { className: 'text-4xl font-black tracking-tight text-white mb-4 uppercase' }, 'Our Historic Legacy'),
+          React.createElement('p', { className: 'text-xs text-zinc-400 font-medium max-w-xl mx-auto' }, 
             'Founded in 1970, ICAC holds an unmatched historical record in the Sri Lankan youth movement.'
           )
         ),
         React.createElement('div', { className: 'grid lg:grid-cols-2 gap-12 items-center pt-6' },
-          React.createElement('div', { className: 'space-y-6 text-zinc-300 text-sm leading-relaxed' },
+          React.createElement('div', { className: 'space-y-6 text-zinc-300 text-xs leading-relaxed' },
             React.createElement('p', null, 
               'The journey of the Interact Club of Ananda College is an unbroken tale of peak leadership. ICAC holds the highly distinguished national record of producing the highest single contribution of ',
               React.createElement('strong', { className: 'text-white font-bold' }, 'District Interact Representatives (DIRs)'),
@@ -150,23 +184,22 @@ export default function App() {
           ),
           React.createElement('div', { className: 'grid grid-cols-2 gap-4' },
             metrics.map((m, i) =>
-              React.createElement('div', { key: i, className: `p-8 rounded-xl text-center ${glassStyle}` },
-                React.createElement('h3', { className: 'text-3xl font-black text-yellow-500 mb-1' }, m.count),
-                React.createElement('span', { className: 'text-[10px] font-bold text-zinc-400 uppercase tracking-widest block' }, m.label)
+              React.createElement('div', { key: i, className: `p-6 rounded-xl text-center transition-all duration-300 hover:scale-[1.03] ${glassStyle}` },
+                React.createElement('h3', { className: 'text-2xl font-black text-yellow-500 mb-1' }, m.count),
+                React.createElement('span', { className: 'text-[9px] font-bold text-zinc-400 uppercase tracking-widest block' }, m.label)
               )
             )
           )
         )
       ),
 
-      // Segment 2: Hall of Fame Configuration (Image 2 Card Layout)
       React.createElement('section', { className: 'space-y-8' },
-        React.createElement('h3', { className: 'text-2xl font-black text-white tracking-tight' }, 'The Hall of Fame: Past DIRs'),
+        React.createElement('h3', { className: 'text-xl font-black text-white tracking-tight uppercase' }, 'The Hall of Fame: Past DIRs'),
         React.createElement('div', { className: 'grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4' },
           pastDirs.map((dir, idx) =>
-            React.createElement('div', { key: idx, className: `p-6 rounded-xl space-y-3 hover:border-zinc-700 transition-all ${glassStyle}` },
-              React.createElement('span', { className: 'text-[10px] font-bold text-yellow-500 block font-mono tracking-wider' }, `(${dir.year})`),
-              React.createElement('h4', { className: 'text-sm font-bold text-white leading-tight' }, dir.name)
+            React.createElement('div', { key: idx, className: `p-5 rounded-xl space-y-2 transition-all duration-300 hover:scale-[1.02] hover:border-zinc-700 ${glassStyle}` },
+              React.createElement('span', { className: 'text-[9px] font-bold text-yellow-500 block font-mono tracking-wider' }, `(${dir.year})`),
+              React.createElement('h4', { className: 'text-xs font-bold text-white leading-tight' }, dir.name)
             )
           )
         )
@@ -174,50 +207,50 @@ export default function App() {
     );
   };
 
-  const renderRoster = () => {
-    const renderAvatar = (imgUrl) => {
-      return React.createElement('div', { className: 'w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex-shrink-0 overflow-hidden flex items-center justify-center' },
-        React.createElement('img', {
-          src: imgUrl,
-          className: 'w-full h-full object-cover',
-          alt: '',
-          onError: (e) => {
-            e.target.style.display = 'none';
-            if (e.target.nextSibling) e.target.nextSibling.style.display = 'block';
-          }
-        }),
-        React.createElement('svg', { className: 'w-6 h-6 text-zinc-700 hidden', fill: 'currentColor', viewBox: '0 0 24 24', style: { display: 'none' } },
-          React.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z' })
-        )
-      );
-    };
+  const renderAvatar = (imgUrl) => {
+    return React.createElement('div', { className: 'w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex-shrink-0 overflow-hidden flex items-center justify-center' },
+      React.createElement('img', {
+        src: imgUrl,
+        className: 'w-full h-full object-cover',
+        alt: '',
+        onError: (e) => {
+          e.target.style.display = 'none';
+          if (e.target.nextSibling) e.target.nextSibling.style.display = 'block';
+        }
+      }),
+      React.createElement('svg', { className: 'w-6 h-6 text-zinc-700 hidden', fill: 'currentColor', viewBox: '0 0 24 24', style: { display: 'none' } },
+        React.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z' })
+      )
+    );
+  };
 
+  const renderRoster = () => {
     return React.createElement('section', { className: 'space-y-16 py-4' },
       React.createElement('div', { className: 'text-center' },
-        React.createElement('h2', { className: 'text-3xl font-black text-white tracking-tight' }, 'Executive Committee')
+        React.createElement('h2', { className: 'text-2xl font-black text-white tracking-tight uppercase' }, 'Executive Committee')
       ),
       React.createElement('div', { className: 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6' },
         execCommittee.map((member, index) =>
-          React.createElement('div', { key: index, className: `p-5 rounded-xl flex items-center space-x-4 ${glassStyle}` },
+          React.createElement('div', { key: index, className: `p-5 rounded-xl flex items-center space-x-4 transition-all duration-300 hover:scale-[1.02] hover:border-zinc-700 ${glassStyle}` },
             renderAvatar(member.img),
             React.createElement('div', null,
-              React.createElement('h4', { className: 'text-sm font-bold text-white' }, member.name),
-              React.createElement('p', { className: 'text-[10px] text-yellow-500 font-bold tracking-wider uppercase mt-1' }, member.role)
+              React.createElement('h4', { className: 'text-xs font-bold text-white' }, member.name),
+              React.createElement('p', { className: 'text-[9px] text-amber-400 font-black tracking-widest uppercase mt-1' }, member.role)
             )
           )
         )
       ),
 
       React.createElement('div', { className: 'text-center pt-6' },
-        React.createElement('h2', { className: 'text-3xl font-black text-white tracking-tight' }, 'Director Board')
+        React.createElement('h2', { className: 'text-2xl font-black text-white tracking-tight uppercase' }, 'Director Board')
       ),
       React.createElement('div', { className: 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6' },
         directorBoard.map((dir, index) =>
-          React.createElement('div', { key: index, className: `p-5 rounded-xl flex items-center space-x-4 ${glassStyle}` },
+          React.createElement('div', { key: index, className: `p-5 rounded-xl flex items-center space-x-4 transition-all duration-300 hover:scale-[1.02] hover:border-zinc-700 ${glassStyle}` },
             renderAvatar(dir.img),
             React.createElement('div', null,
-              React.createElement('h4', { className: 'text-sm font-bold text-white' }, dir.name),
-              React.createElement('p', { className: 'text-[10px] text-yellow-500 font-bold tracking-wider uppercase mt-1' }, dir.role)
+              React.createElement('h4', { className: 'text-xs font-bold text-white' }, dir.name),
+              React.createElement('p', { className: 'text-[9px] text-zinc-400 font-bold tracking-wider uppercase mt-1' }, dir.role)
             )
           )
         )
@@ -232,7 +265,7 @@ export default function App() {
       { id: 'greenlife', label: 'Green Life' },
       { id: 'international', label: 'International Understanding' },
       { id: 'finance', label: 'Finance' },
-      { id: 'pr', label: 'Public Relations (PR)' }
+      { id: 'pr', label: 'Public Relations' }
     ];
 
     const filtered = projectFilter === 'all' 
@@ -245,25 +278,29 @@ export default function App() {
           React.createElement('button', {
             key: cat.id,
             onClick: () => setProjectFilter(cat.id),
-            className: `px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all ${projectFilter === cat.id ? 'bg-red-700 text-white shadow-lg shadow-red-900/30' : 'bg-zinc-900 text-zinc-400 hover:text-white'}`
+            className: `px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wide transition-all duration-300 ${projectFilter === cat.id ? 'bg-red-700 text-white shadow-lg shadow-red-900/30 scale-105' : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800'}`
           }, cat.label)
         )
       ),
 
       React.createElement('div', { className: 'mt-12' },
-        React.createElement('h2', { className: 'text-4xl font-black text-white mb-2 tracking-tight' }, 'Showing All Flagship Projects'),
-        React.createElement('p', { className: 'text-xs text-zinc-500 font-medium' }, `Displaying ${filtered.length} active initiatives under this selection.`)
+        React.createElement('h2', { className: 'text-2xl font-black text-white mb-2 tracking-tight uppercase' }, 'Flagship Projects'),
+        React.createElement('p', { className: 'text-[11px] text-zinc-500 font-semibold' }, `Displaying ${filtered.length} active initiatives under this selection.`)
       ),
 
       React.createElement('div', { className: 'grid md:grid-cols-3 gap-6' },
         filtered.map((proj, idx) =>
-          React.createElement('div', { key: idx, className: `rounded-2xl overflow-hidden group hover:scale-[1.01] transition-transform ${glassStyle}` },
-            React.createElement('div', { className: `h-44 bg-gradient-to-br ${proj.gradient} p-6 flex flex-col justify-between border-b border-white/[0.05]` },
-              React.createElement('span', { className: 'bg-black/50 backdrop-blur-sm px-3 py-1 rounded text-[10px] font-bold tracking-widest text-white max-w-max uppercase' }, proj.tag),
-              React.createElement('h3', { className: 'text-2xl font-black tracking-tight text-white' }, proj.name)
+          React.createElement('div', { key: idx, className: `rounded-2xl overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${glassStyle}` },
+            React.createElement('div', { className: `h-44 bg-gradient-to-br ${proj.gradient} p-6 flex flex-col justify-between border-b border-white/[0.05] relative overflow-hidden` },
+              React.createElement('div', { className: 'absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300' }),
+              React.createElement('span', { className: 'bg-black/60 backdrop-blur-sm px-3 py-1 rounded text-[9px] font-black tracking-widest text-white max-w-max uppercase z-10' }, proj.tag),
+              React.createElement('h3', { className: 'text-xl font-black tracking-tight text-white transition-transform duration-300 group-hover:translate-x-1 z-10' }, proj.name)
             ),
-            React.createElement('div', { className: 'p-5 bg-black/40' },
-              React.createElement('span', { className: 'text-[10px] font-bold text-yellow-500 tracking-wider uppercase' }, proj.avenue)
+            React.createElement('div', { className: 'p-4 bg-black/40 flex justify-between items-center' },
+              React.createElement('span', { className: 'text-[9px] font-bold text-yellow-500 tracking-wider uppercase' }, proj.avenue),
+              React.createElement('svg', { className: 'w-3 h-3 text-zinc-500 transition-all duration-300 transform group-hover:translate-x-1 group-hover:text-white', fill: 'none', stroke: 'currentColor', strokeWidth: '2', viewBox: '0 0 24 24' },
+                React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2', d: 'M9 5l7 7-7 7' })
+              )
             )
           )
         )
@@ -271,26 +308,25 @@ export default function App() {
     );
   };
 
-  // Main system engine injection mapping the absolute locked parallax styling configuration
-  return React.createElement('div', { 
-    className: 'min-h-screen text-zinc-100 font-sans antialiased relative selection:bg-red-800 selection:text-white',
-    style: {
-      backgroundColor: '#000000',
-      backgroundImage: 'radial-gradient(circle at 50% 50%, #2a080c 0%, #000000 80%)',
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-    }
-  },
+  const renderFooter = () => {
+    return React.createElement('footer', { className: 'mt-24 border-t border-zinc-900 py-8 px-4 text-center space-y-4' },
+      React.createElement('div', { className: 'flex justify-center space-x-6' },
+        React.createElement('a', { href: 'https://instagram.com', target: '_blank', rel: 'noreferrer', className: 'text-zinc-500 hover:text-red-500 transition-colors duration-300 text-xs font-bold uppercase tracking-wider' }, 'Instagram'),
+        React.createElement('a', { href: 'https://facebook.com', target: '_blank', rel: 'noreferrer', className: 'text-zinc-500 hover:text-red-500 transition-colors duration-300 text-xs font-bold uppercase tracking-wider' }, 'Facebook'),
+        React.createElement('a', { href: 'https://linkedin.com', target: '_blank', rel: 'noreferrer', className: 'text-zinc-500 hover:text-red-500 transition-colors duration-300 text-xs font-bold uppercase tracking-wider' }, 'LinkedIn')
+      ),
+      React.createElement('p', { className: 'text-[10px] font-mono text-zinc-600 uppercase tracking-widest' }, '© ' + new Date().getFullYear() + ' ICAC. All Rights Reserved.')
+    );
+  };
+
+  return React.createElement('div', { className: 'min-h-screen bg-black text-zinc-100 antialiased font-sans selection:bg-red-500/30 selection:text-white pb-6' },
     renderHeader(),
-    React.createElement('main', { className: 'max-w-7xl mx-auto px-8 py-12 relative z-10' },
+    React.createElement('main', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6' },
       activeTab === 'home' && renderHome(),
-      activeTab === 'roster' && renderRoster(),
+      activeTab === 'projects' && renderProjects(),
       activeTab === 'legacy' && renderLegacy(),
-      activeTab === 'projects' && renderProjects()
+      activeTab === 'roster' && renderRoster()
     ),
-    React.createElement('footer', { className: 'border-t border-zinc-900 mt-24 py-8 text-center text-xs text-zinc-600 relative z-10' },
-      '© ' + new Date().getFullYear() + ' Interact Club of Ananda College. All Rights Reserved.'
-    )
+    renderFooter()
   );
 }
