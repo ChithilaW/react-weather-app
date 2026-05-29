@@ -72,9 +72,9 @@ export default function App() {
         React.createElement('span', { className: 'text-lg font-bold tracking-tight text-white' }, 'Interact Club of Ananda College')
       ),
       React.createElement('nav', { className: 'flex items-center space-x-6 mt-4 sm:mt-0' },
-        ['about', 'history', 'avenues', 'projects', 'legacy', 'roster'].map((tab) => {
+        ['about', 'projects', 'legacy', 'roster'].map((tab) => {
           const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
-          const isHomeTabActive = activeTab === 'home' && (tab === 'about' || tab === 'avenues' || tab === 'history');
+          const isHomeTabActive = activeTab === 'home' && (tab === 'about');
           const isCurrentTab = activeTab === tab || isLegacyActive || isHomeTabActive;
           return React.createElement('button', {
             key: tab,
@@ -202,7 +202,7 @@ export default function App() {
             renderAvatar(member.img),
             React.createElement('div', null,
               React.createElement('h4', { className: 'text-sm font-bold text-white' }, member.name),
-              React.createElement('p', { className: 'text-xs text-zinc-500 font-medium tracking-wide uppercase mt-0.5' }, member.role)
+              React.createElement('p', { className: 'text-[10px] text-yellow-500 font-bold tracking-wider uppercase mt-1' }, member.role)
             )
           )
         )
