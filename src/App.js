@@ -95,7 +95,7 @@ export default function App() {
           })
         ),
 
-        // Mobile Menu Toggle Button (Hamburger icon)
+        // Mobile Menu Toggle Button (Hamburger icon) yay
         React.createElement('button', {
           onClick: () => setIsMobileMenuOpen(!isMobileMenuOpen),
           className: 'absolute right-0 top-1/2 -translate-y-1/2 sm:hidden p-2 text-zinc-400 hover:text-white focus:outline-none'
