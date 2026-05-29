@@ -167,8 +167,8 @@ export default function App() {
     return React.createElement('div', { className: 'space-y-24 py-6 relative z-10' },
       React.createElement('section', { className: 'space-y-12' },
         React.createElement('div', { className: 'text-center' },
-          React.createElement('h2', { className: 'text-4xl font-black tracking-tight text-white mb-4 uppercase' }, 'Our Historic Legacy'),
-          React.createElement('p', { className: 'text-xs text-zinc-400 font-medium max-w-xl mx-auto' }, 
+          React.createElement('h2', { className: 'text-5xl font-black tracking-tight text-white mb-4 uppercase' }, 'Our Historic Legacy'),
+          React.createElement('p', { className: 'text-sm text-zinc-400 font-medium max-w-xl mx-auto' }, 
             'Founded in 1970, ICAC holds an unmatched historical record in the Sri Lankan youth movement.'
           )
         ),
@@ -190,7 +190,7 @@ export default function App() {
           React.createElement('div', { className: 'grid grid-cols-2 gap-4' },
             metrics.map((m, i) =>
               React.createElement('div', { key: i, className: `p-6 rounded-xl text-center transition-transform duration-300 hover:scale-105 ${glassStyle}` },
-                React.createElement('h3', { className: 'text-2xl font-black text-yellow-500 mb-1' }, m.count),
+                React.createElement('h3', { className: 'text-3xl font-black text-yellow-500 mb-1' }, m.count),
                 React.createElement('span', { className: 'text-[9px] font-bold text-zinc-400 uppercase tracking-widest block' }, m.label)
               )
             )
@@ -203,8 +203,8 @@ export default function App() {
         React.createElement('div', { className: 'grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4' },
           pastDirs.map((dir, idx) =>
             React.createElement('div', { key: idx, className: `p-5 rounded-xl space-y-2 transition-all duration-300 hover:scale-[1.02] hover:border-zinc-800 ${glassStyle}` },
-              React.createElement('span', { className: 'text-[9px] font-bold text-yellow-500 block font-mono tracking-wider' }, `(${dir.year})`),
-              React.createElement('h4', { className: 'text-xs font-bold text-white leading-tight' }, dir.name)
+              React.createElement('span', { className: 'text-[10px] font-bold text-yellow-500 block font-mono tracking-wider' }, `(${dir.year})`),
+              React.createElement('h4', { className: 'text-sm font-bold text-white leading-tight' }, dir.name)
             )
           )
         )
@@ -232,14 +232,14 @@ export default function App() {
   const renderRoster = () => {
     return React.createElement('section', { className: 'space-y-16 py-4 relative z-10' },
       React.createElement('div', { className: 'text-center' },
-        React.createElement('h2', { className: 'text-2xl font-black text-white tracking-tight uppercase' }, 'Executive Committee')
+        React.createElement('h2', { className: 'text-3xl font-black text-white tracking-tight uppercase' }, 'Executive Committee')
       ),
       React.createElement('div', { className: 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6' },
         execCommittee.map((member, index) =>
           React.createElement('div', { key: index, className: `p-5 rounded-xl flex items-center space-x-4 transition-all duration-300 hover:scale-[1.02] hover:border-zinc-800 ${glassStyle}` },
             renderAvatar(member.img),
             React.createElement('div', null,
-              React.createElement('h4', { className: 'text-xs font-bold text-white' }, member.name),
+              React.createElement('h4', { className: 'text-sm font-bold text-white' }, member.name),
               React.createElement('p', { className: 'text-[9px] text-yellow-500 font-black tracking-widest uppercase mt-1' }, member.role)
             )
           )
@@ -254,8 +254,8 @@ export default function App() {
           React.createElement('div', { key: index, className: `p-5 rounded-xl flex items-center space-x-4 transition-all duration-300 hover:scale-[1.02] hover:border-zinc-800 ${glassStyle}` },
             renderAvatar(dir.img),
             React.createElement('div', null,
-              React.createElement('h4', { className: 'text-xs font-bold text-white' }, dir.name),
-              React.createElement('p', { className: 'text-[9px] text-zinc-400 font-bold tracking-wider uppercase mt-1' }, dir.role)
+              React.createElement('h4', { className: 'text-sm font-bold text-white' }, dir.name),
+              React.createElement('p', { className: 'text-[9px] text-yellow-500 font-bold tracking-wider uppercase mt-1' }, dir.role)
             )
           )
         )
