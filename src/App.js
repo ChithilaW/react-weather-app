@@ -54,7 +54,7 @@ export default function App() {
 
   const flagshipProjects = [
     { name: "RACE FOR CHANGE", tag: "FUNDRAISER", avenue: "FINANCE", id: "finance", gradient: "from-red-600 to-black" },
-    { name: "SPLISH SPLASH", tag: "INFRASTRUCTURE", avenue: "COMMUNITY SERVICE", id: "community", gradient: "from-amber-600 to-stone-900" },
+    { name: "SPLISH SPLASH", tag: "FUNDRAUSER", avenue: "FINANCE", id: "community", gradient: "from-amber-600 to-stone-900" },
     { name: "HOPE", tag: "WELFARE", avenue: "COMMUNITY SERVICE", id: "community", gradient: "from-red-700 to-zinc-950" }
   ];
 
@@ -108,9 +108,9 @@ export default function App() {
           React.createElement('span', { className: 'block text-xs text-zinc-500 mt-1' }, '(Only applicable to students of Ananda College)')
         ),
         React.createElement('div', { className: 'max-w-md mx-auto space-y-4' },
-          React.createElement('a', { href: '#', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Register Now'),
-          React.createElement('a', { href: 'https://google.com', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'District Drive'),
-          React.createElement('a', { href: '#', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Doc Formats')
+          React.createElement('a', { href: 'https://docs.google.com/forms/d/e/1FAIpQLSd_CvN84tuXB9CTfZ0-zYBlYCATKET-G3jmzjjRaMEYD7w0dA/viewform', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Register Now'),
+          React.createElement('a', { href: 'https://drive.google.com/drive/folders/1eUZvik_t60TQNnf3ZeScHKTn8jMT4Y29', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'District Drive'),
+          React.createElement('a', { href: 'https://docs.google.com/document/d/1mq6RYc_eZZ1nsH6wxu5e-sIh13wgM8hViL3Rse2XJkQ/edit?tab=t.0', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-bold text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-white/[0.02] to-transparent transition-all uppercase' }, 'Doc Formats')
         )
       )
     );
