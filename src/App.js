@@ -83,7 +83,7 @@ React.useEffect(() => {
           React.createElement('img', { 
             src: '/icac-logo.png', 
             onError: (e) => { e.target.style.display = 'none'; }, 
-            className: 'w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(239,68,68,0.2)]',
+            className: 'w-20 h-20 object-contain drop-shadow-[0_0_8px_rgba(239,68,68,0.2)]',
             alt: 'ICAC Logo'
           })
         ),
@@ -334,7 +334,7 @@ React.useEffect(() => {
     
     // Fixed background element that lets text scroll over it smoothly
     React.createElement('div', { 
-      className: 'fixed inset-y-0 right-0 w-full sm:w-1/2 opacity-[0.15] bg-no-repeat bg-right-top pointer-events-none mix-blend-lighten z-0',
+      className: 'fixed inset-y-0 right-0 w-full sm:w-1/2 opacity-[0.30] bg-no-repeat bg-right-top pointer-events-none mix-blend-lighten z-0',
       style: { 
         backgroundImage: "url('/knight-bg.png')",
         backgroundSize: 'contain',
