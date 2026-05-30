@@ -73,29 +73,28 @@ React.useEffect(() => {
   const glassStyle = "bg-black/40 backdrop-blur-xl border border-white/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.6)]";
   const renderHeader = () => {
     return React.createElement('header', { 
-      // FIXED: Increased vertical container padding from py-4 to py-6 to naturally hold the larger logo shape safely
-      className: 'sticky top-0 z-50 w-full bg-black/80 backdrop-blur-xl border-b border-zinc-900/80 px-4 sm:px-8 py-6 select-none' 
+      // FIXED: Reset padding strictly back to your original slim 'py-4' size layout
+      className: 'sticky top-0 z-50 w-full bg-black/80 backdrop-blur-xl border-b border-zinc-900/80 px-4 sm:px-8 py-4 select-none' 
     },
       React.createElement('div', { 
         className: 'w-full flex items-center justify-between relative max-w-7xl mx-auto' 
       },
         
-        // Brand Image Container (Pushed to z-50 to hover correctly above everything else)
+        // Brand Image Container 
         React.createElement('div', { 
           onClick: () => { setActiveTab('home'); setIsMobileMenuOpen(false); },
-          // FIXED: Removed bounding box max-height limits so your size classes take full effect
           className: 'flex items-center cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none relative z-50' 
         },
           React.createElement('img', { 
             src: '/icac-logo.png', 
             onError: (e) => { e.target.style.display = 'none'; }, 
-            // FIXED: Locked down full w-20 h-20 formatting properties cleanly
-            className: 'w-20 h-20 object-contain drop-shadow-[0_0_16px_rgba(239,68,68,0.5)]',
+            // FIXED: Switched to 'object-cover' and added 'scale-150 origin-left' to cleanly multiply the logo size without bloating the nav bar height
+            className: 'w-12 h-12 object-cover scale-150 origin-left drop-shadow-[0_0_12px_rgba(239,68,68,0.4)]',
             alt: 'ICAC Logo'
           })
         ),
 
-        // Desktop Navigation Links Layer
+        // Desktop Navigation Links Layer (Preserved exactly)
         React.createElement('nav', { className: 'hidden sm:flex items-center space-x-8 relative z-50' },
           ['about', 'projects', 'legacy', 'roster'].map((tab) => {
             const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
@@ -125,7 +124,7 @@ React.useEffect(() => {
         )
       ),
 
-      // Collapsible Mobile Menu Panel Dropdown (Using dark glass theme tokens)
+      // Collapsible Mobile Menu Panel Dropdown
       isMobileMenuOpen && React.createElement('nav', { 
         className: 'sm:hidden w-full mt-4 pt-4 border-t border-zinc-900/60 flex flex-col space-y-2 relative z-50 bg-black/95 p-4 rounded-xl backdrop-blur-xl shadow-2xl' 
       },
@@ -145,7 +144,7 @@ React.useEffect(() => {
       )
     );
   };
-
+  
   const renderHome = () => {
     return React.createElement('div', { className: 'space-y-20 relative z-10' },
       React.createElement('section', { className: 'text-center max-w-4xl mx-auto pt-16 sm:pt-24 pb-12 px-4' },
@@ -344,7 +343,7 @@ React.useEffect(() => {
     // FIXED: Removed 'hidden md:block' to keep the knight on mobile.
     // Added 'top-20 md:top-0' to push it below the navbar on mobile, and adjusted opacity layers.
     React.createElement('div', { 
-      className: 'fixed top-20 md:top-0 inset-x-0 bottom-0 md:inset-0 w-full pointer-events-none mix-blend-lighten z-0 bg-no-repeat bg-center md:bg-right-top opacity-[0.05] md:opacity-[0.12]',
+      className: 'fixed top-20 md:top-0 inset-x-0 bottom-0 md:inset-0 w-full pointer-events-none mix-blend-lighten z-0 bg-no-repeat bg-center md:bg-right-top opacity-[0.30] md:opacity-[0.30]',
       style: { 
         backgroundImage: "url('/knight-bg.png')",
         backgroundSize: 'contain',
