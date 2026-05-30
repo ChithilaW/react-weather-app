@@ -71,29 +71,32 @@ React.useEffect(() => {
 
   // Upgraded Uniform Glassmorphism tokens applied across entire app interfaces
   const glassStyle = "bg-black/40 backdrop-blur-xl border border-white/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.6)]";
-    const renderHeader = () => {
+  const renderHeader = () => {
     return React.createElement('header', { 
-      // FIXED: Added 'sticky top-0' to keep it always visible, 'z-50' to stay on top of the knight, and matching frosted glass styling
-      className: 'sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-zinc-900/60 px-6 sm:px-8 py-4 select-none' 
+      // FIXED: Increased vertical container padding from py-4 to py-6 to naturally hold the larger logo shape safely
+      className: 'sticky top-0 z-50 w-full bg-black/80 backdrop-blur-xl border-b border-zinc-900/80 px-4 sm:px-8 py-6 select-none' 
     },
-      React.createElement('div', { className: 'flex flex-row items-center justify-between relative max-w-7xl mx-auto' },
+      React.createElement('div', { 
+        className: 'w-full flex items-center justify-between relative max-w-7xl mx-auto' 
+      },
         
-        // Brand Image Container (Pushed to z-20 to prevent the background knight from clipping it)
+        // Brand Image Container (Pushed to z-50 to hover correctly above everything else)
         React.createElement('div', { 
           onClick: () => { setActiveTab('home'); setIsMobileMenuOpen(false); },
-          className: 'flex items-center cursor-pointer mx-auto sm:mx-0 transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none relative z-20' 
+          // FIXED: Removed bounding box max-height limits so your size classes take full effect
+          className: 'flex items-center cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none relative z-50' 
         },
           React.createElement('img', { 
             src: '/icac-logo.png', 
             onError: (e) => { e.target.style.display = 'none'; }, 
-            // UPDATED: Kept your larger size dimensions clean so it stands out proudly
-            className: 'w-16 h-16 object-contain drop-shadow-[0_0_12px_rgba(239,68,68,0.4)]',
+            // FIXED: Locked down full w-20 h-20 formatting properties cleanly
+            className: 'w-20 h-20 object-contain drop-shadow-[0_0_16px_rgba(239,68,68,0.5)]',
             alt: 'ICAC Logo'
           })
         ),
 
-        // Desktop Links Layer with micro-interaction hover shifts
-        React.createElement('nav', { className: 'hidden sm:flex items-center space-x-8 relative z-20' },
+        // Desktop Navigation Links Layer
+        React.createElement('nav', { className: 'hidden sm:flex items-center space-x-8 relative z-50' },
           ['about', 'projects', 'legacy', 'roster'].map((tab) => {
             const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
             const isHomeTabActive = activeTab === 'home' && (tab === 'about');
@@ -109,10 +112,10 @@ React.useEffect(() => {
           })
         ),
 
-        // Responsive Hamburger Icon Wrapper
+        // Mobile Menu 3-Line Hamburger Trigger Button
         React.createElement('button', {
           onClick: () => setIsMobileMenuOpen(!isMobileMenuOpen),
-          className: 'absolute right-0 sm:hidden text-zinc-400 hover:text-white transition-colors p-2 focus:outline-none z-20'
+          className: 'sm:hidden text-zinc-400 hover:text-white transition-colors p-2 focus:outline-none relative z-50'
         },
           React.createElement('svg', { className: 'w-6 h-6 transition-transform duration-300', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24', strokeWidth: '2.5' },
             isMobileMenuOpen 
@@ -122,8 +125,10 @@ React.useEffect(() => {
         )
       ),
 
-      // Collapsible Phone Menu Interface
-      isMobileMenuOpen && React.createElement('nav', { className: 'sm:hidden mt-4 pt-4 border-t border-zinc-900/60 flex flex-col space-y-2 relative z-20' },
+      // Collapsible Mobile Menu Panel Dropdown (Using dark glass theme tokens)
+      isMobileMenuOpen && React.createElement('nav', { 
+        className: 'sm:hidden w-full mt-4 pt-4 border-t border-zinc-900/60 flex flex-col space-y-2 relative z-50 bg-black/95 p-4 rounded-xl backdrop-blur-xl shadow-2xl' 
+      },
         ['about', 'projects', 'legacy', 'roster'].map((tab) => {
           const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
           const isHomeTabActive = activeTab === 'home' && (tab === 'about');
@@ -134,7 +139,7 @@ React.useEffect(() => {
               setActiveTab(tab === 'about' || tab === 'avenues' || tab === 'history' ? 'home' : tab);
               setIsMobileMenuOpen(false);
             },
-            className: `text-sm font-bold tracking-wider uppercase text-left py-3 px-4 rounded-lg transition-all ${isCurrentTab ? 'bg-red-950/20 text-red-500 font-extrabold' : 'text-zinc-400 hover:text-white hover:bg-zinc-900/40'}`
+            className: `text-sm font-bold tracking-wider uppercase text-left py-3 px-4 rounded-lg transition-all ${isCurrentTab ? 'bg-red-950/40 text-red-500 font-extrabold' : 'text-zinc-400 hover:text-white hover:bg-zinc-900/60'}`
           }, tab === 'legacy' ? 'Legacy' : tab);
         })
       )
@@ -143,24 +148,24 @@ React.useEffect(() => {
 
   const renderHome = () => {
     return React.createElement('div', { className: 'space-y-20 relative z-10' },
-      React.createElement('section', { className: 'text-center max-w-4xl mx-auto pt-24 pb-12 px-4' },
+      React.createElement('section', { className: 'text-center max-w-4xl mx-auto pt-16 sm:pt-24 pb-12 px-4' },
         React.createElement('span', { className: 'px-4 py-1.5 bg-red-950/40 border border-red-900/50 rounded-full text-xs font-bold text-red-500 uppercase tracking-widest inline-block mb-6 shadow-sm' }, 'INTERACT DISTRICT 3220'),
-        React.createElement('h1', { className: 'text-5xl sm:text-6xl font-black text-white tracking-tight leading-none mb-6 uppercase' }, 
+        React.createElement('h1', { className: 'text-4xl sm:text-6xl font-black text-white tracking-tight leading-none mb-6 uppercase' }, 
           'An Unparalleled Legacy of ', 
-          React.createElement('span', { className: 'block text-yellow-500 mt-2 tracking-wide font-extrabold' }, 'Leadership & Service')
+          React.createElement('span', { className: 'block text-yellow-500 mt-2 tracking-wide font-extrabold text-3xl sm:text-5xl' }, 'Leadership & Service')
         ),
-        React.createElement('p', { className: 'text-base sm:text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed font-medium' }, // Increased to text-base/text-lg
+        React.createElement('p', { className: 'text-base sm:text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed font-medium' }, 
           '"Forging the flame forward." Meet the leadership driving our historic operations forward.'
         )
       ),
 
-      // Affiliations Card Context
+      // Affiliations Card Layout
       React.createElement('section', { className: `text-center max-w-4xl mx-auto py-14 px-8 rounded-2xl transition-all duration-300 hover:border-zinc-800/80 ${glassStyle}` },
         React.createElement('span', { className: 'text-xs font-black text-yellow-500 uppercase tracking-widest block mb-3 font-mono' }, 'REGISTRATION & DOCUMENTATION'),
         React.createElement('h2', { className: 'text-4xl font-black text-white tracking-tight mb-4 uppercase' }, 'Affiliations'),
-        React.createElement('p', { className: 'text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed font-medium' }, // Increased to text-base
+        React.createElement('p', { className: 'text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed font-medium' }, 
           'Use the following links to register to join the Interact Club of Ananda College. ',
-          React.createElement('span', { className: 'block text-sm text-zinc-500 mt-2 font-semibold' }, '(Only applicable to students of Ananda College)') // Increased to text-sm
+          React.createElement('span', { className: 'block text-sm text-zinc-500 mt-2 font-semibold' }, '(Only applicable to students of Ananda College)')
         ),
         React.createElement('div', { className: 'max-w-md mx-auto space-y-4' },
           React.createElement('a', { href: 'https://google.com', target: '_blank', rel: 'noreferrer', className: 'block w-full py-3.5 text-center tracking-widest text-xs font-black text-white border border-zinc-800 rounded-full bg-gradient-to-r from-transparent hover:bg-red-950/10 hover:border-red-900/40 to-transparent transition-all duration-300 uppercase' }, 'Register Now'),
@@ -336,16 +341,17 @@ React.useEffect(() => {
 
   return React.createElement('div', { className: 'min-h-screen bg-black text-zinc-100 antialiased font-sans selection:bg-red-500/30 selection:text-white relative overflow-x-hidden' },
     
-    // Fixed background element that lets text scroll over it smoothly
+    // FIXED: Removed 'hidden md:block' to keep the knight on mobile.
+    // Added 'top-20 md:top-0' to push it below the navbar on mobile, and adjusted opacity layers.
     React.createElement('div', { 
-      className: 'fixed inset-y-0 right-0 w-full sm:w-1/2 opacity-[0.30] bg-no-repeat bg-right-top pointer-events-none mix-blend-lighten z-0',
+      className: 'fixed top-20 md:top-0 inset-x-0 bottom-0 md:inset-0 w-full pointer-events-none mix-blend-lighten z-0 bg-no-repeat bg-center md:bg-right-top opacity-[0.05] md:opacity-[0.12]',
       style: { 
         backgroundImage: "url('/knight-bg.png')",
         backgroundSize: 'contain',
         animation: 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite'
       }
     }),
-    
+
     renderHeader(),
     React.createElement('main', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10' },
       activeTab === 'home' && renderHome(),
