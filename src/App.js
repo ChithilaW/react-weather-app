@@ -330,7 +330,7 @@ React.useEffect(() => {
     
     // Fixed background element that lets text scroll over it smoothly
     React.createElement('div', { 
-      className: 'fixed inset-y-0 right-0 w-full sm:w-1/2 opacity-[0.06] bg-no-repeat bg-right-top pointer-events-none mix-blend-lighten z-0',
+      className: 'fixed inset-y-0 right-0 w-full sm:w-1/2 opacity-[0.15] bg-no-repeat bg-right-top pointer-events-none mix-blend-lighten z-0',
       style: { 
         backgroundImage: "url('/knight-bg.png')",
         backgroundSize: 'contain',
