@@ -73,23 +73,24 @@ React.useEffect(() => {
   const glassStyle = "bg-black/40 backdrop-blur-xl border border-white/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.6)]";
   const renderHeader = () => {
     return React.createElement('header', { 
-      // FIXED: Reset padding strictly back to your original slim 'py-4' size layout
+      // FIXED: Kept the ultra-sleek, compact slim 'py-4' bar height exactly as you want it
       className: 'sticky top-0 z-50 w-full bg-black/80 backdrop-blur-xl border-b border-zinc-900/80 px-4 sm:px-8 py-4 select-none' 
     },
       React.createElement('div', { 
         className: 'w-full flex items-center justify-between relative max-w-7xl mx-auto' 
       },
         
-        // Brand Image Container 
+        // Brand Image Wrapper Box Container
         React.createElement('div', { 
           onClick: () => { setActiveTab('home'); setIsMobileMenuOpen(false); },
-          className: 'flex items-center cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none relative z-50' 
+          // FIXED: Switched the scale factor to 'scale-125' to expand the logo cleanly while keeping it fully uncropped
+          className: 'flex items-center cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none relative z-50 scale-125 origin-left' 
         },
           React.createElement('img', { 
             src: '/icac-logo.png', 
             onError: (e) => { e.target.style.display = 'none'; }, 
-            // FIXED: Switched to 'object-cover' and added 'scale-150 origin-left' to cleanly multiply the logo size without bloating the nav bar height
-            className: 'w-12 h-12 object-cover scale-150 origin-left drop-shadow-[0_0_12px_rgba(239,68,68,0.4)]',
+            // FIXED: Reverted to 'object-contain' and allocated explicit width space 'w-24' to guarantee text lines never clip
+            className: 'w-24 h-12 object-contain drop-shadow-[0_0_12px_rgba(239,68,68,0.4)]',
             alt: 'ICAC Logo'
           })
         ),
@@ -144,7 +145,7 @@ React.useEffect(() => {
       )
     );
   };
-  
+
   const renderHome = () => {
     return React.createElement('div', { className: 'space-y-20 relative z-10' },
       React.createElement('section', { className: 'text-center max-w-4xl mx-auto pt-16 sm:pt-24 pb-12 px-4' },
