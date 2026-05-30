@@ -60,9 +60,12 @@ React.useEffect(() => {
   ];
 
   const flagshipProjects = [
-    { name: "RACE FOR CHANGE", tag: "FUNDRAISER", avenue: "FINANCE", id: "finance", gradient: "from-red-600 to-black" },
-    { name: "SPLISH SPLASH", tag: "FUNDRAISER", avenue: "FINANCE", id: "finance", gradient: "from-amber-600 to-stone-900" },
-    { name: "HOPE", tag: "WELFARE", avenue: "COMMUNITY SERVICE", id: "community", gradient: "from-red-700 to-zinc-950" }
+    { name: "MOJITO MANIA'26", tag: "FUNDRAISER", avenue: "FINANCE", id: "finance", gradient: "from-green-600 to-black" },
+    { name: "SPLISH SPLASH'26", tag: "CAR WASH", avenue: "FINANCE", id: "finance", gradient: "from-blue-600 to-stone-900" },
+    { name: "KICK OFF'26", tag: "FUTSAL", avenue: "CLUB SERVICE", id: "club", gradient: "from-red-700 to-zinc-950" }
+    { name: "REHTORIK'26", tag: "DEBATING", avenue: "FINANCE", id: "finance", gradient: "from-red-600 to-black" },
+    { name: "SLIP N' KICK", tag: "SOAPY FUTSAL", avenue: "CLUB SERVICE", id: "club", gradient: "from-amber-600 to-stone-900" },
+    { name: "SARANA", tag: "WELFARE", avenue: "COMMUNITY SERVICE", id: "community", gradient: "from-blue-200 to-zinc-950" }
   ];
 
   // Upgraded Uniform Glassmorphism tokens applied across entire app interfaces
