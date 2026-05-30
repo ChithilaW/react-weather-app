@@ -5,6 +5,12 @@ export default function App() {
   const [projectFilter, setProjectFilter] = useState('all');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Drop this exact block directly underneath your "isMobileMenuOpen" state declaration in Part 1:
+React.useEffect(() => {
+  document.title = "ICAC";
+}, []);
+
+
   // Executive Committee with local image paths
   const execCommittee = [
     { role: "President", name: "Int. Kemith Rajapakse", img: "/board/kemith.png" },
