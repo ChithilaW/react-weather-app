@@ -71,25 +71,29 @@ React.useEffect(() => {
 
   // Upgraded Uniform Glassmorphism tokens applied across entire app interfaces
   const glassStyle = "bg-black/40 backdrop-blur-xl border border-white/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.6)]";
-  const renderHeader = () => {
-    return React.createElement('header', { className: 'sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-zinc-900/60 px-6 sm:px-8 py-2 select-none' },
+    const renderHeader = () => {
+    return React.createElement('header', { 
+      // FIXED: Added 'sticky top-0' to keep it always visible, 'z-50' to stay on top of the knight, and matching frosted glass styling
+      className: 'sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-zinc-900/60 px-6 sm:px-8 py-4 select-none' 
+    },
       React.createElement('div', { className: 'flex flex-row items-center justify-between relative max-w-7xl mx-auto' },
         
-        // Brand Image Container (Centered on Mobile, Text-Free)
+        // Brand Image Container (Pushed to z-20 to prevent the background knight from clipping it)
         React.createElement('div', { 
           onClick: () => { setActiveTab('home'); setIsMobileMenuOpen(false); },
-          className: 'flex items-center cursor-pointer mx-auto sm:mx-0 transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none' 
+          className: 'flex items-center cursor-pointer mx-auto sm:mx-0 transition-transform duration-300 hover:scale-105 active:scale-95 focus:outline-none relative z-20' 
         },
           React.createElement('img', { 
             src: '/icac-logo.png', 
             onError: (e) => { e.target.style.display = 'none'; }, 
-            className: 'w-20 h-20 object-contain drop-shadow-[0_0_8px_rgba(239,68,68,0.2)]',
+            // UPDATED: Kept your larger size dimensions clean so it stands out proudly
+            className: 'w-16 h-16 object-contain drop-shadow-[0_0_12px_rgba(239,68,68,0.4)]',
             alt: 'ICAC Logo'
           })
         ),
 
-        // Desktop Links Layer with animation underlines
-        React.createElement('nav', { className: 'hidden sm:flex items-center space-x-8' },
+        // Desktop Links Layer with micro-interaction hover shifts
+        React.createElement('nav', { className: 'hidden sm:flex items-center space-x-8 relative z-20' },
           ['about', 'projects', 'legacy', 'roster'].map((tab) => {
             const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
             const isHomeTabActive = activeTab === 'home' && (tab === 'about');
@@ -108,7 +112,7 @@ React.useEffect(() => {
         // Responsive Hamburger Icon Wrapper
         React.createElement('button', {
           onClick: () => setIsMobileMenuOpen(!isMobileMenuOpen),
-          className: 'absolute right-0 sm:hidden text-zinc-400 hover:text-white transition-colors p-2 focus:outline-none'
+          className: 'absolute right-0 sm:hidden text-zinc-400 hover:text-white transition-colors p-2 focus:outline-none z-20'
         },
           React.createElement('svg', { className: 'w-6 h-6 transition-transform duration-300', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24', strokeWidth: '2.5' },
             isMobileMenuOpen 
@@ -119,7 +123,7 @@ React.useEffect(() => {
       ),
 
       // Collapsible Phone Menu Interface
-      isMobileMenuOpen && React.createElement('nav', { className: 'sm:hidden mt-4 pt-4 border-t border-zinc-900/60 flex flex-col space-y-2' },
+      isMobileMenuOpen && React.createElement('nav', { className: 'sm:hidden mt-4 pt-4 border-t border-zinc-900/60 flex flex-col space-y-2 relative z-20' },
         ['about', 'projects', 'legacy', 'roster'].map((tab) => {
           const isLegacyActive = activeTab === 'legacy' && tab === 'legacy';
           const isHomeTabActive = activeTab === 'home' && (tab === 'about');
