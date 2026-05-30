@@ -72,7 +72,7 @@ React.useEffect(() => {
   // Upgraded Uniform Glassmorphism tokens applied across entire app interfaces
   const glassStyle = "bg-black/40 backdrop-blur-xl border border-white/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.6)]";
   const renderHeader = () => {
-    return React.createElement('header', { className: 'sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-zinc-900/60 px-6 sm:px-8 py-4 select-none' },
+    return React.createElement('header', { className: 'sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-zinc-900/60 px-6 sm:px-8 py-2 select-none' },
       React.createElement('div', { className: 'flex flex-row items-center justify-between relative max-w-7xl mx-auto' },
         
         // Brand Image Container (Centered on Mobile, Text-Free)
